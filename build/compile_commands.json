@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/projects/Test_cleanBuild/build",
+  "command": "/usr/bin/g++ -DVERSION_INFO=\"\" -DmenteeRobTest_EXPORTS -isystem /projects/Test_cleanBuild/pybind11/include -isystem /usr/include/python3.10 -g -fPIC -fvisibility=hidden -o CMakeFiles/menteeRobTest.dir/src/main.cpp.o -c /projects/Test_cleanBuild/src/main.cpp",
+  "file": "/projects/Test_cleanBuild/src/main.cpp"
+}
+]

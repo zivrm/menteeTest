@@ -1,0 +1,22 @@
+#configuration file
+
+#each motor needs a speed as data
+Motors:
+    M0: 0.2
+    M1: 3
+    M2: -1
+    
+#each sensor has normal distribution of noise with a mean and sigma.
+Sensors:
+    S0: 0, 0.4
+    S1: 0.2 , 1
+
+
+#functions can have other motors or sensors and basic +,-,*,/,^ please keep a space between tokens, M0 refers to the current M0 position, S1 to sensor1 noise level.
+Functions:
+    F1: M0 = 0.8 * M0 + ( S0 - 1 ) * 2
+    F2: M1 = S1 / 10 + 5
+    
+    
+
+

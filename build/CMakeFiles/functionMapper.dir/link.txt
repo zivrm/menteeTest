@@ -1,0 +1,2 @@
+/usr/bin/ar qc libfunctionMapper.a CMakeFiles/functionMapper.dir/src/functionMapper.cpp.o
+/usr/bin/ranlib libfunctionMapper.a
