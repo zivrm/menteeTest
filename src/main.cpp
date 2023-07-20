@@ -91,9 +91,11 @@ std::vector<std::vector<float>>     getStatus(){
 
 
 void callback(uint8_t *data, int len){
-    for(size_t counter=0; counter <len; ++counter ){
+    memory.imageBufferMutex.lock();
+    for(int counter=0; counter <len; ++counter ){
         memory.bufferForImage.push_back(data[counter]);
     }
+    memory.imageBufferMutex.unlock();
 }
 
 
@@ -121,14 +123,20 @@ void updateMotorsensors(){
 
 
 void updateNoise(){
-    std::vector<uint8_t> testBuffer;
-    testBuffer.assign(250, 0x55);
+    #if __tests__
+        std::vector<uint8_t> testBuffer;
+        testBuffer.assign(250, 0x55);
+        uint8_t *pointer = testBuffer.data();
+    #endif
     while (true){
         memory.positionMutex.lock();
         for (sensorPositions& pos : memory.sensors){
             pos.updatePosition();
         }
         memory.positionMutex.unlock();
+        #if __tests__
+            callback(pointer, 211);
+        #endif
         auto ms = std::chrono::steady_clock::now() + std::chrono::milliseconds(4);
         std::this_thread::sleep_until(ms);
     }
@@ -136,7 +144,7 @@ void updateNoise(){
 }
 
 
-void sameImageFromBuffer(std::vector<uint8_t> buffer){
+void saveImageFromBuffer(std::vector<uint8_t> buffer){
     string filename;
     FILE* outfile;
     for(uint32_t filenumber =0;filenumber< UINT_MAX;filenumber++ ){
@@ -162,7 +170,7 @@ void handleImageBUffer(){
             auto start = memory.bufferForImage.begin();
             memory.bufferForImage.erase(start,start+ ImageSizeInBytes);
             memory.imageBufferMutex.unlock();
-            sameImageFromBuffer(copy);
+            saveImageFromBuffer(copy);
             copy.clear();
             continue;
         }

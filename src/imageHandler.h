@@ -32,9 +32,9 @@ namespace jpegHandle{
         _7byteHolder += (pixelData14Bit[counter+1] << 8 ); 
         _7byteHolder += (pixelData14Bit[counter+2] << 16); 
         _7byteHolder += (pixelData14Bit[counter+3] << 24); 
-        // _7byteHolder += (pixelData14Bit[counter+4] << 32); 
-        // _7byteHolder += (pixelData14Bit[counter+5] << 40); 
-        // _7byteHolder += (pixelData14Bit[counter+6] << 48); 
+        _7byteHolder += (pixelData14Bit[counter+4] << 32); 
+        _7byteHolder += (pixelData14Bit[counter+5] << 40); 
+        _7byteHolder += (pixelData14Bit[counter+6] << 48); 
         
         for (uint8_t i =0; i< 4; ++i){
             uint16_t holder14bit =(_7byteHolder >> 14*i)& 0x3fff;
